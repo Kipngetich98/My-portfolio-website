@@ -23,11 +23,10 @@ const Contact = () => {
     e.target.reset();
 
     const params = {
-      to_name: 'Your Name',
+      to_name: 'Vincent Kirui',
       from_name: form.current.elements.name.value,
       from_email: form.current.elements.email.value,
-      message: form.current.elements.message.value,
-      your_name: 'Your Name'
+      message: form.current.elements.message.value
     };
 
     emailjs.send('service_43c61ai', 'template_n1g1izq', params, '74YgDN8pHL6Qx8Qtm')
