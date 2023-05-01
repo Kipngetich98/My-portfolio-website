@@ -1,15 +1,16 @@
-import React from 'react'
-import './contact.css' 
-import {MdOutlineEmail} from 'react-icons/md'
-import {FaTwitter} from 'react-icons/fa'
-import {BsWhatsapp} from 'react-icons/bs'
-import { useRef } from 'react';
-import emailjs from 'emailjs-com'
+import React, { useRef } from 'react';
+import './contact.css';
+import { MdOutlineEmail } from 'react-icons/md';
+import { FaTwitter } from 'react-icons/fa';
+import { BsWhatsapp } from 'react-icons/bs';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const form = useRef();
+
   const sendEmail = (e) => {
     e.preventDefault();
+
     emailjs.sendForm('service_43c61ai', 'template_n1g1izq', form.current, '74YgDN8pHL6Qx8Qtm')
       .then((result) => {
         console.log(result.text);
@@ -18,7 +19,24 @@ const Contact = () => {
         console.log(error.text);
         alert('An error occurred while sending the message. Please try again later.');
       });
+
     e.target.reset();
+
+    const params = {
+      to_name: 'Your Name',
+      from_name: form.current.elements.name.value,
+      from_email: form.current.elements.email.value,
+      message: form.current.elements.message.value,
+      your_name: 'Your Name'
+    };
+
+    emailjs.send('service_43c61ai', 'template_n1g1izq', params, '74YgDN8pHL6Qx8Qtm')
+      .then((response) => {
+        console.log('Email sent successfully', response);
+      })
+      .catch((error) => {
+        console.log('Email failed to send', error);
+      });
   };
 
   return (
@@ -49,8 +67,8 @@ const Contact = () => {
             <a href="https://wa.me/+254799476072" target="_blank" rel="noreferrer">Send a message</a>
           </article>
         </div>
-        {/* END OF CONTACT OPTION */}
-        <form  ref={form} onSubmit={sendEmail} method ="post">
+
+        <form ref={form} onSubmit={sendEmail} method="post">
           <input type="text" name='name' placeholder='Your Full Name' required/>
           <input type="email" name='email' placeholder ='Your Email' required/>
           <textarea name="message" rows="7" placeholder='Your Message' required></textarea>
@@ -61,4 +79,4 @@ const Contact = () => {
   )
 }
 
-export default Contact
+export default Contact;
