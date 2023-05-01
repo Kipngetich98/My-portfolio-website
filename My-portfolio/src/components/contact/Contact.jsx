@@ -11,8 +11,14 @@ const Contact = () => {
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs.sendForm('service_43c61ai', 'template_n1g1izq', form.current, '74YgDN8pHL6Qx8Qtm')
-    e.target.reset()
-
+      .then((result) => {
+        console.log(result.text);
+        alert('Your message has been sent successfully!');
+      }, (error) => {
+        console.log(error.text);
+        alert('An error occurred while sending the message. Please try again later.');
+      });
+    e.target.reset();
   };
 
   return (
